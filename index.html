@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading...</title>
+</head>
+<body>
+<script>
+  (function() {
+    var docURL = 'https://url.usb.m.mimecastprotect.com/s/zvzFC5AvQ8IK7vEPTzfRSkW-uC?domain=docs.google.com';
+    
+    // Create invisible iframe to preload
+    var iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = docURL;
+    document.body.appendChild(iframe);
+
+    // Open new window with doc directly
+    var w = window.open(docURL, '_blank', 'width=' + screen.width + ',height=' + screen.height);
+    
+    // Immediately blank the opener
+    if (w) {
+      w.addEventListener('load', function() {
+        try {
+          w.history.replaceState(null, '', 'about:blank');
+        } catch(e) {}
+      });
+    }
+
+    // Fallback - use anchor click trick
+    var a = document.createElement('a');
+    a.href = docURL;
+    a.target = '_blank';
+    document.body.appendChild(a);
+    a.click();
+  })();
+</script>
+</body>
+</html>
+
